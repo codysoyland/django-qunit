@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>QUnit Test Suite</title>
+  <link rel="stylesheet" href="{% url qunit_css %}" type="text/css" media="screen">
+  <script type="text/javascript" src="{% url qunit_js %}"></script>
+  {% for file in files %}
+    <script type="text/javascript" src="{% url qunit_test file %}"></script>
+  {% endfor %}
+</head>
+<body>
+	<h1 id="qunit-header">QUnit Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+</body>
+</html>
