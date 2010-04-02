@@ -27,9 +27,11 @@ def run_tests(request, path):
         json = file.read()
         suite.update(simplejson.loads(json))
 
+    previous_directory = parent_directory(path)
+
     return render_to_response('qunit/index.html', {
         'files': [path + file for file in files if file.endswith('js')],
-        'previous_directory': parent_directory(path),
+        'previous_directory': previous_directory,
         'in_subdirectory': True and (previous_directory is not None) or False,
         'subsuites': directories,
         'suite': suite,
