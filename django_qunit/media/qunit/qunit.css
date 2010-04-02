@@ -117,3 +117,12 @@ strong b.fail{
 strong b.pass{
 	color:#5E740B;
 	}
+
+div#navigation {
+  background-color:#D2E0E6;
+  color:#000000;
+  font-family:"Helvetica Neue Light","HelveticaNeue-Light","Helvetica Neue",Calibri,Helvetica,Arial;
+  font-size:small;
+  margin:0;
+  padding:0.5em 0 0.5em 2.5em;
+}
