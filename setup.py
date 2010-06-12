@@ -3,8 +3,9 @@ from distutils.core import setup
 
 setup(
     name='django-qunit',
-    version='0.1.0',
+    version='0.1.1',
     description='QUnit Javascript testing integration for Django.',
+    long_description=open('README.md').read(),
     author='Cody Soyland',
     author_email='codysoyland@gmail.com',
     url='http://github.com/codysoyland/django-qunit/',
