@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 from django.conf import settings
-import simplejson
+from django.utils import simplejson
 
 import os
 
