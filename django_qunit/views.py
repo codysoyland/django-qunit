@@ -20,6 +20,7 @@ def get_suite_context(request, path):
     # defaults
     suite['extra_urls'] = []
     suite['extra_media_urls'] = []
+	suite['coffeescript_urls'] = []
 
     # load suite.json if present
     if 'suite.json' in files:
@@ -29,12 +30,17 @@ def get_suite_context(request, path):
 
     previous_directory = parent_directory(path)
 
+	compressor = False
+	if "compressor" in settings.INSTALLED_APPS:
+	    compressor = True
+
     return {
         'files': [path + file for file in files if file.endswith('js')],
         'previous_directory': previous_directory,
         'in_subdirectory': True and (previous_directory is not None) or False,
         'subsuites': directories,
         'suite': suite,
+		'compressor': compressor,
     }
 
 def run_tests(request, path):

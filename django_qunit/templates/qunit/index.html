@@ -10,6 +10,14 @@
   {% for url in suite.extra_media_urls %}
     <script type="text/javascript" src="{{ MEDIA_URL }}{{ url }}"></script>
   {% endfor %}
+  {% if compressor %}
+    {% for url in suite.coffeescript_urls %}
+      {% load compress %}
+      {% compress js %}
+        <script type="text/coffeescript" src="{{ url }}" />
+      {% endcompress %}
+    {% endfor %}
+  {% endif %}
   {% for file in files %}
     <script type="text/javascript" src="{% url qunit_test file %}"></script>
   {% endfor %}
