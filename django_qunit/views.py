@@ -18,6 +18,7 @@ def get_suite_context(request, path):
         suite['name'] = ''.join(pieces[-2])
 
     # defaults
+    suite['html_fixtures'] = []
     suite['extra_urls'] = []
     suite['extra_media_urls'] = []
 
@@ -29,13 +30,28 @@ def get_suite_context(request, path):
 
     previous_directory = parent_directory(path)
 
-    return {
-        'files': [path + file for file in files if file.endswith('js')],
-        'previous_directory': previous_directory,
-        'in_subdirectory': True and (previous_directory is not None) or False,
-        'subsuites': directories,
-        'suite': suite,
-    }
+    from django.template.loader import get_template
+    from django.template import Context
+
+    orig_template_dirs = settings.TEMPLATE_DIRS
+    settings.TEMPLATE_DIRS += (full_path,)
+    try:
+        base_context = {}
+        for i, template_name in enumerate(suite['html_fixtures']):
+            t = get_template(template_name)
+            context = Context(dict(base_context, template_name=template_name))
+            suite['html_fixtures'][i] = t.render(context)
+
+        return {
+            'files': [path + file for file in files if file.endswith('js')],
+            'previous_directory': previous_directory,
+            'in_subdirectory': True and (previous_directory is not None) or False,
+            'subsuites': directories,
+            'suite': suite,
+        }
+    finally:
+        settings.TEMPLATE_DIRS = orig_template_dirs
+
 
 def run_tests(request, path):
     suite_context = get_suite_context(request, path)

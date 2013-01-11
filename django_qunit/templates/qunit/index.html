@@ -4,15 +4,6 @@
 	<title>QUnit Test Suite</title>
   <link rel="stylesheet" href="{% url qunit_css %}" type="text/css" media="screen">
   <script type="text/javascript" src="{% url qunit_js %}"></script>
-  {% for url in suite.extra_urls %}
-    <script type="text/javascript" src="{{ url }}"></script>
-  {% endfor %}
-  {% for url in suite.extra_media_urls %}
-    <script type="text/javascript" src="{{ MEDIA_URL }}{{ url }}"></script>
-  {% endfor %}
-  {% for file in files %}
-    <script type="text/javascript" src="{% url qunit_test file %}"></script>
-  {% endfor %}
 </head>
 <body>
   <h1 id="qunit-header">QUnit Test Suite ({{ suite.name|capfirst }})</h1>
@@ -31,5 +22,20 @@
   {% endif %}
 	<h2 id="qunit-userAgent"></h2>
 	<ol id="qunit-tests"></ol>
+        <div id="qunit-fixture">
+        {% for html in suite.html_fixtures %}
+          {{ html|safe }}
+        {% endfor %}
+        </div>
+
+  {% for url in suite.extra_urls %}
+    <script type="text/javascript" src="{{ url }}"></script>
+  {% endfor %}
+  {% for url in suite.extra_media_urls %}
+    <script type="text/javascript" src="{{ MEDIA_URL }}{{ url }}"></script>
+  {% endfor %}
+  {% for file in files %}
+    <script type="text/javascript" src="{% url qunit_test file %}"></script>
+  {% endfor %}
 </body>
 </html>

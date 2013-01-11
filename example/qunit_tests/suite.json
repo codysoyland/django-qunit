@@ -1,5 +1,8 @@
 {
     "name": "Main Test Suite",
+    "html_fixtures": [
+      "example_fixture.html"
+    ],
     "extra_urls": [
       "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
     ]
