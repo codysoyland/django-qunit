@@ -13,9 +13,9 @@ def get_suite_context(request, path):
     # set suite name
     pieces = path.split('/')
     if len(pieces) < 2:
-        suite['name'] = 'main'
+        suite['name'] = pieces[0] or 'main'
     else:
-        suite['name'] = ''.join(pieces[-2])
+        suite['name'] = pieces[-2]
 
     # defaults
     suite['extra_urls'] = []
