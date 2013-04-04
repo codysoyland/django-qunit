@@ -13,7 +13,8 @@ Installation
 
  1. Add `django_qunit` to your `settings.INSTALLED_APPS`.
  2. Add `settings.QUNIT_TEST_DIRECTORY`, containing the path to your javascript files.
- 3. Add a urlconf to `include('django_qunit.urls')`.
+ 3. Add `QUNIT_TEST_DIRECTORY` to the end of `settings.TEMPLATE_DIRS`.
+ 4. Add a urlconf to `include('django_qunit.urls')`.
 
   If you would only like these urls available in debug mode, use something like the following.
 
@@ -23,7 +24,7 @@ Installation
                 (r'^qunit/', include('django_qunit.urls')),
             )  
  
- 4. Visit the URL you've included in your urlconf, and it should display QUnit test results.
+ 5. Visit the URL you've included in your urlconf, and it should display QUnit test results.
 
 *See the example in the tarball for more information.*
 
@@ -38,6 +39,7 @@ Configuration
             * section_a
                 * test1.js
                 * test2.js
+                * stub_a.html
                 * suite.json
             * section_b
                 * section_b1
@@ -67,6 +69,11 @@ Configuration
   
   Note that `suite.json` attributes are not inherited by lower level directories, so you need to define `suite.json` files for each 
   folder that needs additional assets loaded.
+  
+  Additionally, you can include `.html` files in any testing directory.  The contents of each of these files will be included on that 
+  directory's testing page inside a `div` with an id determined by the name of the file.  For example, for the example stuctur above, 
+  `stub_a.html` would be included in a `div` with id `stub_a`.  All html stubs are wrapped in a `div` with id `qunit-html-stubs`, and 
+  this `div` is given the css property `display: none`.
 
 License
 =======

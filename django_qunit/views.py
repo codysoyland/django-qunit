@@ -31,6 +31,7 @@ def get_suite_context(request, path):
 
     return {
         'files': [path + file for file in files if file.endswith('js')],
+        'html_stubs': [{'path': path + file, 'file': file} for file in files if file.endswith('html')],
         'previous_directory': previous_directory,
         'in_subdirectory': True and (previous_directory is not None) or False,
         'subsuites': directories,
