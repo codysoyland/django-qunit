@@ -2,7 +2,7 @@ import os
 
 BASE_PATH = os.path.dirname(__file__)
 
-QUNIT_TEST_DIRECTORY = os.path.join(BASE_PATH, 'qunit_tests')
+QUNIT_TEST_PATH = os.path.join(BASE_PATH, 'qunit')
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
