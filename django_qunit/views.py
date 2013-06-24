@@ -65,20 +65,20 @@ def walk_finders(path):
   # Get a file system path from url path
   path_comps = [c for c in path.split('/') if c != u'']
   tmp = os.sep.join(path_comps)
-  file_path = os.path.join('qunit', tmp)
+  file_path = os.path.join(settings.QUNIT_TEST_PATH, tmp)
   finder_files = []
 
   # Get list of files from app directories from app file finder
   adf = AppDirectoriesFinder()
   for fpath, filestorageobj in adf.list(''):
-    if 'qunit' in fpath:
+    if settings.QUNIT_TEST_PATH in fpath:
       finder_files.append((fpath, filestorageobj))
 
   # Get list of files from app directories from file system file finder
-  # By adding this second, files in the project base override apop specific files
+  # By adding this second, files in the project base override app specific files
   fsf = FileSystemFinder()
   for fpath, filestorageobj in fsf.list(''):
-    if 'qunit' in fpath:
+    if settings.QUNIT_TEST_PATH in fpath:
       finder_files.append((fpath, filestorageobj))
 
   # Form arrays of files in this directory and sub directories

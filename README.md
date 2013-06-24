@@ -12,8 +12,12 @@ Installation
 ============
 
  1. Add `django_qunit` to your `settings.INSTALLED_APPS`.
- 2. Add `settings.QUNIT_TEST_DIRECTORY`, containing the path to your javascript files.
- 3. Add `QUNIT_TEST_DIRECTORY` to the end of `settings.TEMPLATE_DIRS`.
+ 2. Add `settings.PROJECT_PATH` containing the 
+ 2. Add `settings.QUNIT_TEST_PATH`, containing the path to the qunit test directory from within each apps static files directory, and your main project static directory.  This is a file path, so make sure to use `os.path.join` to create the path.
+ 
+   For example, if `STATICFILES_DIRS` contains `os.path.join(os.path.dirname(os.path.abspath(os.path.split(__file__)[0])), "static")` and `QUNIT_TEST_PATH` is `"qunit"`, place your test files inside a "qunit" folder in that directory. 
+   Within each app, you should put the files in `appname/staticdir/QUNIT_TEST_PATH/appname/`.  Adding in `appname` keeps tests namespaced and creates a natural tree structure for your tests.
+ 
  4. Add a urlconf to `include('django_qunit.urls')`.
 
   If you would only like these urls available in debug mode, use something like the following.
@@ -32,10 +36,10 @@ Configuration
 ==============
 * Qunit test directory layout
 
-  Extending upon the contents of the `examples` directory, we found something resembling the following works well, assuming `qunit_tests` is your base directory. 
+  Extending upon the contents of the `examples` directory, we found something resembling the following works well, assuming `qunit` is your QUNIT_TEST_PATH. 
   Group tests into files then folders.  Folders can be nested.
 
-        * qunit_tests
+        * qunit
             * section_a
                 * test1.js
                 * test2.js
@@ -51,6 +55,22 @@ Configuration
             * test1.js
             * suite.json
 
+  Within an app, first create a empty folder with the name of the app, then add more tests and test directories with that.
+
+        * qunit
+            * myapp
+                * test1.js
+                * test2.js
+                * stub1.html
+                * suite.json
+                * section_a
+                    * section_b1
+                        * test1.js
+                    * test3.js
+                    * suite.json
+                * section_b
+                    * test4.js
+  
 * Test configuration files
 
   Add a file named `suite.json` to any directory in `QUNIT_TEST_DIRECTORY` to change the displayed name of that testing directory 
