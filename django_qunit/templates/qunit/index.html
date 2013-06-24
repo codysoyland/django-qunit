@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,7 @@
     <script type="text/javascript" src="{{ MEDIA_URL }}{{ url }}"></script>
   {% endfor %}
   {% for file in files %}
-    <script type="text/javascript" src="{% url "qunit_test" file %}"></script>
+    <script type="text/javascript" src="{% static file %}"></script>
   {% endfor %}
 </head>
 <body>
@@ -22,7 +23,7 @@
   <div id="navigation">
     <ul>
     {% if in_subdirectory %}
-      <li><a href="{% url qunit_test_overview previous_directory %}">..</a></li>
+      <li><a href="{% url "qunit_test_overview" previous_directory %}">..</a></li>
     {% endif %}
     
     {% for suite in subsuites %}
