@@ -12,7 +12,7 @@ Installation
 ============
 
  1. Either: 
-   * Install via `pip install [django_qunit2](https://pypi.python.org/pypi/django-qunit2/20130624)`
+   * Install via [`pip install django_qunit2`](https://pypi.python.org/pypi/django-qunit2/20130624)
    * Download the files / clone the repo and put the `django_qunit/django_qunit` folder where ever you put your projects apps
  1. Add `django_qunit` (or `apps.django_qunit`, depending on which option you chose for the first step) to your `settings.INSTALLED_APPS`.
  2. Add `'django_qunit.snippet_loader.Loader',` to `settings.TEMPLATE_LOADERS`.
