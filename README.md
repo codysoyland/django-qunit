@@ -11,16 +11,17 @@ app and test Ajax routines.
 Installation
 ============
 
- 1. Add `django_qunit` to your `settings.INSTALLED_APPS`, and copy the `django_qunit/django_qunit` folder where ever you put your projects apps.
- 2. Add `'apps.django_qunit.templates.loaders.snippet.Loader',` to `settings.TEMPLATE_LOADERS`.
- 3. Add `settings.QUNIT_TEST_PATH`, containing the path to the qunit test directory from within each apps static files directory, and your main project static directory.  This is a file path, so make sure to use `os.path.join` to create the path.
+ 1. Either: a) copy the `django_qunit/django_qunit` folder where ever you put your projects apps, or b) run `python setup.py sdist` then `python setup.py install` inside the top `django_qunit` folder to install as a package.
+ 1. Add `django_qunit` (or `apps.django_qunit`, depending on which option you chose for the first step) to your `settings.INSTALLED_APPS`.
+ 2. Add `'django_qunit.snippet_loader.Loader',` to `settings.TEMPLATE_LOADERS`.
+ 3. Add `settings.QUNIT_TEST_PATH`, containing the path to the qunit test directory from within each app's static files directory, and your main project static directory.  This is a file path, so make sure to use `os.path.join` to create the path.
  
    For example, if `STATICFILES_DIRS` contains `"/path/to/my/project/static"` and `QUNIT_TEST_PATH` is `"qunit"`, place your test files inside a "qunit" folder in `os.path.join("/path/to/my/project/static", QUNIT_TEST_PATH)`. 
    Within each app, you should put the files in `appname/static_dir/QUNIT_TEST_PATH/appname/`.  Adding in `appname` keeps tests namespaced and creates a natural tree structure for your tests.
  
  4. Add a urlconf to `include('django_qunit.urls')`.
 
-  If you would only like these urls available in debug mode, use something like the following.
+  If you would only like these urls available in debug mode, use something like the following in your base `urls.py` file.
 
         if settings.DEBUG:
             """Test-only urls """
