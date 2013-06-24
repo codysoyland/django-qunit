@@ -1,4 +1,4 @@
 *.pyc
 /build
 /dist
-/django_qunit.egg-info
+/django_qunit2.egg-info

@@ -8,7 +8,7 @@ README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='django-qunit',
+    name='django-qunit2',
     version='20130624',
     description='QUnit Javascript testing integration for Django.',
     long_description=README,
