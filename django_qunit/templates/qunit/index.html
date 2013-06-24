@@ -2,8 +2,8 @@
 <html>
 <head>
 	<title>QUnit Test Suite</title>
-  <link rel="stylesheet" href="{% url qunit_css %}" type="text/css" media="screen">
-  <script type="text/javascript" src="{% url qunit_js %}"></script>
+  <link rel="stylesheet" href="{% url "qunit_css" %}" type="text/css" media="screen">
+  <script type="text/javascript" src="{% url "qunit_js" %}"></script>
   {% for url in suite.extra_urls %}
     <script type="text/javascript" src="{{ url }}"></script>
   {% endfor %}
@@ -11,7 +11,7 @@
     <script type="text/javascript" src="{{ MEDIA_URL }}{{ url }}"></script>
   {% endfor %}
   {% for file in files %}
-    <script type="text/javascript" src="{% url qunit_test file %}"></script>
+    <script type="text/javascript" src="{% url "qunit_test" file %}"></script>
   {% endfor %}
 </head>
 <body>
