@@ -10,6 +10,7 @@ import sys
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.importlib import import_module
+from django.utils._os import safe_join
 from django.utils import six
 from django.template.loaders.app_directories import Loader as AppLoader
 

@@ -5,3 +5,8 @@ try:
     settings.QUNIT_TEST_PATH
 except AttributeError:
     raise ImproperlyConfigured('Missing required setting QUNIT_TEST_PATH.')
+
+try:
+    settings.PROJECT_PATH
+except AttributeError:
+    raise ImproperlyConfigured('Missing required setting PROJECT_PATH.')

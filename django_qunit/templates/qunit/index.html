@@ -27,7 +27,7 @@
     {% endif %}
     
     {% for suite in subsuites %}
-      <li><a href="{{ suite }}/">{{ suite }}</a></li>
+      <li><a href="{{ suite.link_name }}/">{{ suite.pretty_name }}</a></li>
     {% endfor %}
     </ul>
   </div>

@@ -13,33 +13,46 @@ def get_suite_context(request, path):
 
     suite = {}
 
-    # set suite name
+    # Set suite name
     pieces = path.split('/')
     if len(pieces) < 2:
         suite['name'] = pieces[0] or 'main'
     else:
         suite['name'] = pieces[-2]
+    
+    # Format suite name
+    suite['name'] = pretty_variable(suite['name'])
 
-    # defaults
+    # Format directories too
+    subsuites = [{"link_name": d, "pretty_name": pretty_variable(d)} for d in directories]
+
+    # Set suite defaults
     suite['extra_urls'] = []
     suite['extra_media_urls'] = []
 
-    # load suite.json if present
-    if 'suite.json' in files:
-        file = open(os.path.join(full_path, 'suite.json'), 'r')
-        json = file.read()
-        suite.update(simplejson.loads(json))
+    # Load suite.json if present
+    for file in files:
+        if 'suite.json' in file[0]:
+          fileo = file[1]._open(name = file[0], mode='rb')
+          json = fileo.read()
+          suite.update(simplejson.loads(json))
 
     previous_directory = parent_directory(path)
     
     return {
-        'files': [path + file for file in files if file.endswith('js')],
-        'html_stubs': [{'path': path + file, 'file': file} for file in files if file.endswith('html')],
+        'files': [file[0] for file in files if file[0].endswith('js')],
+        'html_stubs': [{'path': file[1].path(file[0]), 'file': os.path.basename(file[0]).rstrip(".html")}
+                        for file in files if file[0].endswith('html')],
         'previous_directory': previous_directory,
         'in_subdirectory': True and (previous_directory is not None) or False,
-        'subsuites': directories,
+        'subsuites': subsuites,
         'suite': suite,
     }
+
+
+def pretty_variable(name):
+    """Replace underscores with spaces and capitalize each word """
+    return name.replace("_", " ").title()
 
 
 def walk_finders(path):
@@ -49,40 +62,43 @@ def walk_finders(path):
   Works similarly to 'os.walk' but returns just files and directories
   by surfing over all possible files.
   """
+  # Get a file system path from url path
+  path_comps = [c for c in path.split('/') if c != u'']
+  tmp = os.sep.join(path_comps)
+  file_path = os.path.join('qunit', tmp)
   finder_files = []
 
   # Get list of files from app directories from app file finder
   adf = AppDirectoriesFinder()
-  for fpath, _ in adf.list(''):
+  for fpath, filestorageobj in adf.list(''):
     if 'qunit' in fpath:
-      finder_files.append(fpath)
+      finder_files.append((fpath, filestorageobj))
 
   # Get list of files from app directories from file system file finder
   # By adding this second, files in the project base override apop specific files
   fsf = FileSystemFinder()
-  for fpath, _ in fsf.list(''):
+  for fpath, filestorageobj in fsf.list(''):
     if 'qunit' in fpath:
-      finder_files.append(fpath)
+      finder_files.append((fpath, filestorageobj))
 
   # Form arrays of files in this directory and sub directories
   matchfiles = []
   subdirectories = []
-  for file_path in finder_files:
-      urlpath = os.path.join("qunit", path)
-      split = file_path.split(urlpath)
+  for ffile_path, fso in finder_files:
+      split = ffile_path.split(file_path)
       if len(split) > 1:
-          # check to see if sub-directories exist
+          # Check to see if sub-directories exist
           path_split = split[1].split(os.sep)
-          if len(path_split) > 1:
+          if len(path_split) > 1 and path_split[0] != u'':
               # this file indicates a sub directory
               subdirectories.append(path_split[0])
           else:
               # this is a file in this directory
-              matchfiles.append(file_path)
+              matchfiles.append((ffile_path, fso))
 
   # Get rid of duplicates
-  subdirectories = list(set(subdirectories))
-  matchfiles = list(set(matchfiles))
+  subdirectories = list(set(subdirectories)) # array of strings
+  matchfiles = list(set(matchfiles)) # array of tuples
   
   return (subdirectories, matchfiles)
 

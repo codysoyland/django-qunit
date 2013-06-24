@@ -12,6 +12,6 @@ urlpatterns = patterns('',
     url(r'^qunit/qunit.css', 'django.views.static.serve', {
         'document_root': media_root, 'path': 'qunit/qunit.css',
     }, name='qunit_css'),
-    url('^(?P<path>.*)/$', run_tests,
+    url('^(?P<path>.*)$', run_tests,
         name='qunit_test_overview'),
 )
