@@ -3,10 +3,13 @@
 <html>
 <head>
 	<title>QUnit Test Suite</title>
-  <link rel="stylesheet" href="{% url "qunit_css" %}" type="text/css" media="screen">
-  <script type="text/javascript" src="{% url "qunit_js" %}"></script>
-  {% for url in suite.extra_urls %}
+  <link rel="stylesheet" href="{{ qunit_css }}" type="text/css" media="screen">
+  <script type="text/javascript" src="{{ qunit_js }}"></script>
+  {% for url in suite.extra_urls.js %}
     <script type="text/javascript" src="{{ url }}"></script>
+  {% endfor %}
+  {% for url in suite.extra_urls.css %}
+    <link href="{{ url }}" rel="stylesheet">
   {% endfor %}
   {% for url in suite.extra_media_urls %}
     <script type="text/javascript" src="{{ MEDIA_URL }}{{ url }}"></script>

@@ -47,6 +47,8 @@ def get_suite_context(request, path):
         'in_subdirectory': True and (previous_directory is not None) or False,
         'subsuites': subsuites,
         'suite': suite,
+        'qunit_js': settings.STATIC_URL + "js/qunit.js",
+        'qunit_css': settings.STATIC_URL + "css/qunit.css"
     }
 
 
