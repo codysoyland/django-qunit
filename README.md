@@ -96,6 +96,12 @@ Configuration
   `stub_a.html` would be included in a `div` with id `stub_a`.  All html stubs are wrapped in a `div` with id `qunit-html-stubs`, and 
   this `div` is given the css property `display: none`.
 
+Tips
+=====
+
+* You must have "django.contrib.staticfiles.finders.AppDirectoriesFinder" listed as one of your "STATICFILES_FINDERS"
+* Your Django installation should be looking for static files under "appname/static".  If you changed this, the static files for qunit may not be found.
+  
 License
 =======
 Copyright (c) 2012 Timothy Van Heest
