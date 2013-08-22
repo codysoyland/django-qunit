@@ -2,5 +2,6 @@ include LICENSE
 include README.md
 recursive-include docs *
 recursive-include django_qunit *
-recursive-include django_qunit/media/qunit *
+recursive-include django_qunit/static/css *
+recursive-include django_qunit/static/js *
 recursive-include django_qunit/templates/qunit *

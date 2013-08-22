@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-qunit2',
-    version='20130624',
+    version='20130822',
     description='QUnit Javascript testing integration for Django.',
     long_description=README,
     author='Timothy Van Heest',
@@ -19,7 +19,7 @@ setup(
         'django_qunit',
     ],
     package_data={
-        'django_qunit': ['templates/qunit/*', 'media/qunit/*'],
+        'django_qunit': ['templates/qunit/*', 'static/js/*', 'static/css/*'],
     },
     classifiers=['Development Status :: 3 - Alpha',
                  'Environment :: Web Environment',
