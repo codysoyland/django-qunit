@@ -1,5 +1,5 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 
-urlpatterns = patterns('',
+urlpatterns = [
     url('^qunit/', include('django_qunit.urls'))
-)
+]

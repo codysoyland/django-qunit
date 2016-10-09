@@ -7,8 +7,10 @@ QUNIT_TEST_DIRECTORY = os.path.join(BASE_PATH, 'qunit_tests')
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-ROOT_URLCONF = 'example.urls'
+ROOT_URLCONF = 'urls'
 
 INSTALLED_APPS = (
     'django_qunit',
 )
+
+SECRET_KEY = 'foo'
