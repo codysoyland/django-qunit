@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 from django.conf import settings
-from django.utils import simplejson
+import json
 
 import os
 
@@ -24,8 +24,8 @@ def get_suite_context(request, path):
     # load suite.json if present
     if 'suite.json' in files:
         file = open(os.path.join(full_path, 'suite.json'), 'r')
-        json = file.read()
-        suite.update(simplejson.loads(json))
+        suite_json = file.read()
+        suite.update(json.loads(suite_json))
 
     previous_directory = parent_directory(path)
 
